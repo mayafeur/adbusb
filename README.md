@@ -2,6 +2,8 @@
 
 Allow one ADB keyboard to be used on one ADB computer (old Macintosh and Apple IIgs) and one USB computer at the same time by switching between them.
 
+![Illustration](illustration.jpg)
+
 ## What works
 
 - adb passthrough between a macintosh and a keyboard
