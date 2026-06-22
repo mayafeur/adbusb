@@ -6,8 +6,8 @@ Allow one ADB keyboard to be used on one ADB computer (old Macintosh and Apple I
 
 ## What works
 
-- adb passthrough between a macintosh and a keyboard
-- adb to usb-hid conversion:
+- adb passthrough between a macintosh and keyboard/mouse
+- adb keyboard to usb-hid conversion:
   - iso and ansi layouts
   - locking caps lock
   - power key in usb (translated as 0x66 "keyboard power")
@@ -19,9 +19,10 @@ Allow one ADB keyboard to be used on one ADB computer (old Macintosh and Apple I
 - power key shunt for macintosh ii soft power: i don't have the hardware to test it
 - keyboard leds on usb: the *keyboard* library doesn't handle hid output reports
 - hotplugging adb: works randomly, the microcontroller don't seems to like that
-- adb mouse support
+- mouse passthrough in usb-hid mode
 - correct keyboard detection by the macintosh when the board is in usb mode: not a problem in practice
- 
+- collision detection handling: the program calls the keyboard at address 2
+
 ## Hardware needed
 
 - arduino pro micro because it works on 5V and is hid capable

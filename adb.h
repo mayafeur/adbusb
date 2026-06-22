@@ -25,5 +25,6 @@ bool send_wait_stop_to_start();
 void transaction_set_leds(bool num, bool caps, bool scroll);
 uint16_t transaction_get_device_information();
 key_event_t transaction_get_keys();
+void transaction_flush_mouse();
 
 #endif

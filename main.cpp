@@ -15,10 +15,9 @@ void passthrough_mode() {
     while(is_button_activated()) {
         TCNT1 = 0;
         while(is_host_high() && TCNT1 <= 75 * 2);
-        bool is_addressing_to_kb = (command_byte >> 4) == 2;
         bool is_listen = (command_byte & 0b00001100) == 0b00001000;
         bool command_complete = !is_listen || i < -2;
-        if(TCNT1 >= 75 * 2 && is_addressing_to_kb && command_complete) {
+        if(TCNT1 >= 75 * 2 && command_complete) {
             int kb_high_timeout = 185;  // max stop-to-start 260 - 75
             while(true) {
                 TCNT1 = 0;
@@ -54,7 +53,6 @@ void passthrough_mode() {
                 set_release_host();
             }
         }
-
     }
 }
 
@@ -65,6 +63,7 @@ void translation_mode() {
 		translate_key_press(ev.keycode_2, ev.pressed_2);
         delay(11);  // like an original adb host
 	}
+    transaction_flush_mouse();
 }
 
 void translate_key_press(uint8_t adb_code, bool is_pressed) {

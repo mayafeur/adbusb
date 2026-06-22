@@ -31,6 +31,9 @@ void send_bit_kb(bool bit) {
 	delayMicroseconds(bit ? 35 : 65);
 	set_release_kb();
 	delayMicroseconds(bit ? 65 : 35);
+	if(!bit) {
+		while(!is_kb_high());  // in case of SRQ from a mouse
+	}
 }
 
 void send_byte_kb(uint8_t data) {
@@ -135,4 +138,10 @@ key_event_t transaction_get_keys() {
     ev.pressed_2 = !(byte2 & 0x80);
     ev.keycode_2 = byte2 & 0x7F;
 	return ev;
+}
+
+void transaction_flush_mouse() {
+	send_attention_sync();
+	send_command(3, 0b00, 1);
+	send_bit_kb(0);
 }
