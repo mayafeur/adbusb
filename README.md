@@ -6,7 +6,7 @@ Allow one ADB keyboard to be used on one ADB computer (old Macintosh and Apple I
 
 ## What works
 
-- adb passthrough between a macintosh and keyboard/mouse
+- adb passthrough between a macintosh and keyboard/mouse + softpower
 - adb keyboard to usb-hid conversion:
   - iso and ansi layouts
   - locking caps lock
@@ -16,7 +16,6 @@ Allow one ADB keyboard to be used on one ADB computer (old Macintosh and Apple I
   
 ## What don't work yet
 
-- power key shunt for macintosh ii soft power: i don't have the hardware to test it
 - keyboard leds on usb: the *keyboard* library doesn't handle hid output reports
 - hotplugging adb: works randomly, the microcontroller don't seems to like that
 - mouse passthrough in usb-hid mode
@@ -35,9 +34,11 @@ Allow one ADB keyboard to be used on one ADB computer (old Macintosh and Apple I
 - connect the switch between A3 (PF4) and GND
 - connect GND on the two mini-din pins 4
 - connect 9 (PB5) to the mini-din A pin 1 (computer adb line)
+- connect 8 (PB4) to the mini-din A pin 2 (computer softpower line)
 - connect VCC to the mini-din B pin 3 (keyboard power)
-- connect 10 (PB6) to the mini-din B pin 1 (keyboard adb line)
 - connect 10 (PB6) to VCC through the resistor
+- connect 10 (PB6) to the mini-din B pin 1 (keyboard adb line)
+- connect 16 (PB2) to the mini-din B pin 2 (keyboard softpower line)
 - mark the mini-din B as the keyboard connector
 
 > [!CAUTION]

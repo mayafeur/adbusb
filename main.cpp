@@ -53,6 +53,9 @@ void passthrough_mode() {
                 set_release_host();
             }
         }
+        if(is_kb_softpower_pressed()) {
+            press_host_softpower();
+        }
     }
 }
 

@@ -14,6 +14,8 @@ void set_release_kb();
 void set_release_host();
 bool is_kb_high();
 bool is_host_high();
+bool is_kb_softpower_pressed();
+void press_host_softpower();
 void send_bit_kb(bool bit);
 void send_byte_kb(uint8_t data);
 void send_attention_sync();

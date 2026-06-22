@@ -26,6 +26,16 @@ bool is_host_high() {
 	return (HOST_PIN_REGISTER & (1 << HOST_PIN_NUMBER));
 }
 
+bool is_kb_softpower_pressed() {
+	return !(KB_SOFTPOWER_PIN_REGISTER & (1 << KB_SOFTPOWER_PIN_NUMBER));
+}
+
+void press_host_softpower() {
+	HOST_SOFTPOWER_DDR_REGISTER |= (1 << HOST_SOFTPOWER_PIN_NUMBER);
+	delay(100);
+	HOST_SOFTPOWER_DDR_REGISTER &= ~(1 << HOST_SOFTPOWER_PIN_NUMBER);
+}
+
 void send_bit_kb(bool bit) {
 	set_low_kb();
 	delayMicroseconds(bit ? 35 : 65);

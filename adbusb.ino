@@ -8,9 +8,8 @@ void setup() {
 	TCCR1A = 0;
     TCCR1B = 0b00000010; // prescaler 8 (2 MHz)
 	
-	// button
-	SWITCH_DDR_REGISTER  &= ~(1 << SWITCH_PIN_NUMBER); // in
-	SWITCH_DDR_PORT |= (1 << SWITCH_PIN_NUMBER);  // pull-up
+	// pull-up for button
+	SWITCH_DDR_PORT |= (1 << SWITCH_PIN_NUMBER);
 	
 	hid_init();
     reset();  // needed only for M0116/M0118
