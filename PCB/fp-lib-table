@@ -2,4 +2,5 @@
   (version 7)
   (lib (name "promicro")(type "KiCad")(uri "${KIPRJMOD}/ProMicroKiCad/promicro.pretty")(options "")(descr ""))
   (lib (name "MLD-MDC-4-02")(type "KiCad")(uri "${KIPRJMOD}/MLD-MDC-4-02.pretty")(options "")(descr ""))
+  (lib (name "Pushbutton")(type "KiCad")(uri "${KIPRJMOD}/Pushbutton.pretty")(options "")(descr ""))
 )
