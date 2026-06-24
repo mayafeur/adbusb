@@ -1,48 +1,14 @@
 #include <Arduino.h>
 #include "adb.h"
-#include "conf.h"
-
-void set_low_kb() {
-	KB_DDR_REGISTER |= (1 << KB_PIN_NUMBER);
-}
-
-void set_low_host() {
-	HOST_DDR_REGISTER |= (1 << HOST_PIN_NUMBER);
-}
-
-void set_release_kb() {
-	KB_DDR_REGISTER &= ~(1 << KB_PIN_NUMBER);
-}
-
-void set_release_host() {
-	HOST_DDR_REGISTER &= ~(1 << HOST_PIN_NUMBER);
-}
-
-bool is_kb_high() {
-	return (KB_PIN_REGISTER & (1 << KB_PIN_NUMBER));
-}
-
-bool is_host_high() {
-	return (HOST_PIN_REGISTER & (1 << HOST_PIN_NUMBER));
-}
-
-bool is_kb_softpower_pressed() {
-	return !(KB_SOFTPOWER_PIN_REGISTER & (1 << KB_SOFTPOWER_PIN_NUMBER));
-}
-
-void press_host_softpower() {
-	HOST_SOFTPOWER_DDR_REGISTER |= (1 << HOST_SOFTPOWER_PIN_NUMBER);
-	delay(100);
-	HOST_SOFTPOWER_DDR_REGISTER &= ~(1 << HOST_SOFTPOWER_PIN_NUMBER);
-}
+#include "gpio.h"
 
 void send_bit_kb(bool bit) {
-	set_low_kb();
+	set_low(KB_DATA);
 	delayMicroseconds(bit ? 35 : 65);
-	set_release_kb();
+	set_release(KB_DATA);
 	delayMicroseconds(bit ? 65 : 35);
 	if(!bit) {
-		while(!is_kb_high());  // in case of SRQ from a mouse
+		while(!is_high(KB_DATA));  // in case of SRQ from a mouse
 	}
 }
 
@@ -53,9 +19,9 @@ void send_byte_kb(uint8_t data) {
 }
 
 void send_attention_sync() {
-	set_low_kb();
+	set_low(KB_DATA);
 	delayMicroseconds(800);
-	set_release_kb();
+	set_release(KB_DATA);
 	delayMicroseconds(70);
 }
 
@@ -68,9 +34,9 @@ void send_command(int keyboard_id, int command_id, int register_id) {
 }
 
 bool read_bit_kb() {
-	while (is_kb_high());
+	while (is_high(KB_DATA));
 	TCNT1 = 0;
-	while (!is_kb_high());
+	while (!is_high(KB_DATA));
 	return TCNT1 < 100 ? 1 : 0; // 50us with prescaler 8 on 16 MHz
 }
 
@@ -83,9 +49,9 @@ uint16_t read_word_kb() {
 }
 
 void reset() {
-	set_low_kb();
+	set_low(KB_DATA);
 	delayMicroseconds(3500);
-	set_release_kb();
+	set_release(KB_DATA);
 	delay(1000);
 }
 
@@ -109,7 +75,7 @@ void transaction_set_leds(bool num, bool caps, bool scroll) {
 bool send_wait_stop_to_start() {
 	delayMicroseconds(140);  // minimal stop-to-start
 	TCNT1 = 0;
-	while (is_kb_high()) {
+	while (is_high(KB_DATA)) {
     	if (TCNT1 > 380 * 2) {  // timeout 260 us + max lasting stop-to-start 120 us (260-140)
 			return false;
 		}

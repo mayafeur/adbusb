@@ -13,7 +13,7 @@ Allow one ADB keyboard to be used on one ADB computer (old Macintosh and Apple I
   - power key in usb (translated as 0x66 "keyboard power")
 - tested on multiple keyboards: aek ii, m0116/m0118, appledesign...
 - tested on macintosh se
-  
+
 ## What don't work yet
 
 - keyboard leds on usb: the *keyboard* library doesn't handle hid output reports
@@ -25,24 +25,22 @@ Allow one ADB keyboard to be used on one ADB computer (old Macintosh and Apple I
 ## Hardware needed
 
 - arduino pro micro because it works on 5V and is hid capable
-- a resistor (1K - 10K ohm) for the pull up
-- 2 mini-din 4 pin connectors
-- 2-pin switch
+- 2 mini-din 4 pin connectors (only one if using only adb-to-usb)
+- a resistor (1K) for the pull up
+- a button (optional if using only adb-to-usb)
+- a diode (optional, to power the arduino from adb)
 
 ## How to build it
 
-- connect the switch between A3 (PF4) and GND
+- connect button between 2 and GND
+- connect 9 to the mini-din A pin 1 (computer adb data)
+- connect 8 to the mini-din A pin 2 (computer adb softpower)
+- connect mini-din A pin 3 to RAW through the diode (pass from mini-DIN to RAW)
+- connect 10 to the mini-din B pin 1 (keyboard adb data) then to VCC through resistor
+- connect 16 to the mini-din B pin 2 (keyboard adb softpower)
+- connect RAW to the mini-din B pin 3 (keyboard 5V power)
 - connect GND on the two mini-din pins 4
-- connect 9 (PB5) to the mini-din A pin 1 (computer adb line)
-- connect 8 (PB4) to the mini-din A pin 2 (computer softpower line)
-- connect VCC to the mini-din B pin 3 (keyboard power)
-- connect 10 (PB6) to VCC through the resistor
-- connect 10 (PB6) to the mini-din B pin 1 (keyboard adb line)
-- connect 16 (PB2) to the mini-din B pin 2 (keyboard softpower line)
-- mark the mini-din B as the keyboard connector
-
-> [!CAUTION]
-> i don't know what happens if you invert the connectors and inject external 5V into the macintosh adb
+- mark din A as the macintosh connector and din B as the keyboard connector (put a sticker or whatever)
 
 Mini-DIN female connector front view :
 ```
@@ -54,20 +52,20 @@ Mini-DIN female connector front view :
 
 Arduino Pro Micro pinout :
 ```
-                                ___________
-                     PD3  TXD  |    USB    |  RAW
-                     PD2   20  |           |  GND        --- keyboard pin 4
-                          GND  |           |  RST
-computer pin 4 ---        GND  |           |  VCC        --- keyboard pin 3 ---
-                     PD1    2  |           |  A3   PF4                         |
+                                ___________ 
+                     PD3  TXD  |    USB    |  RAW        --- keyboard pin 3 ---
+                     PD2   20  |           |  GND        --- keyboard pin 4    |
+computer pin 4 ---        GND  |           |  RST                              |
+  button pin 1 ---        GND  |           |  VCC                              |
+  button pin 2 ---   PD1    2  |           |  A3   PF4                         |
                      PD0    3  |           |  A2   PF5                         _
                      PD4    4  |           |  A1   PF6                        | |
-                     PC6    5  |           |  A0   PF7               resistor | |
+                     PC6    5  |           |  A0   PF7            1K resistor | |
                      PD7    6  |           |  15   PB1                        |_|
                      PE6    7  |           |  14   PB3                         |
 computer pin 2 ---   PB4    8  |           |  16   PB2   --- keyboard pin 2    |
 computer pin 1 ---   PB5    9  |___________|  10   PB6   --- keyboard pin 1 ---
-
+computer pin 3 --->| RAW
 ```
 
 ## How to compile and upload it

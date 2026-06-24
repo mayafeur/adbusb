@@ -1,41 +1,37 @@
 #include <Arduino.h>
-#include "conf.h"
+#include "gpio.h"
 #include "main.h"
 #include "adb.h"
 #include "map.h"
 #include "hid.h"
 
-bool is_button_activated() {
-	return !(SWITCH_PIN_REGISTER & (1 << SWITCH_PIN_NUMBER));
-}
-
 void passthrough_mode() {
     uint8_t command_byte;
     int i;
-    while(is_button_activated()) {
+    while(true) {
         TCNT1 = 0;
-        while(is_host_high() && TCNT1 <= 75 * 2);
+        while(is_high(HOST_DATA) && TCNT1 <= 75 * 2);
         bool is_listen = (command_byte & 0b00001100) == 0b00001000;
         bool command_complete = !is_listen || i < -2;
         if(TCNT1 >= 75 * 2 && command_complete) {
             int kb_high_timeout = 185;  // max stop-to-start 260 - 75
             while(true) {
                 TCNT1 = 0;
-                while(is_kb_high() && TCNT1 < kb_high_timeout * 2);
+                while(is_high(KB_DATA) && TCNT1 < kb_high_timeout * 2);
                 if(TCNT1 >= kb_high_timeout * 2) {
                     break;
                 }
                 kb_high_timeout = 75;
-                set_low_host();
-                while(!is_kb_high());
-                set_release_host();
+                set_low(HOST_DATA);
+                while(!is_high(KB_DATA));
+                set_release(HOST_DATA);
             }
         }
-        while(is_host_high());
-        set_low_kb();
+        while(is_high(HOST_DATA));
+        set_low(KB_DATA);
         TCNT1 = 0;
-        while(!is_host_high() && TCNT1 < 20000);  // timeout for button
-        set_release_kb();
+        while(!is_high(HOST_DATA) && TCNT1 < 20000);  // timeout for button
+        set_release(KB_DATA);
         int low_time = TCNT1 / 2;
         if(low_time > 700) {  // attention low
             i = 7;  // 8 bits command
@@ -47,24 +43,30 @@ void passthrough_mode() {
                 command_byte |= (bit << i);
             }
             i--;
-            if(i == -2 && !is_kb_high()) {  // if first stop bit + keyboard SRQ
-                set_low_host();
-                while(!is_kb_high());
-                set_release_host();
+            if(i == -2 && !is_high(KB_DATA)) {  // if first stop bit + keyboard SRQ
+                set_low(HOST_DATA);
+                while(!is_high(KB_DATA));
+                set_release(HOST_DATA);
             }
         }
-        if(is_kb_softpower_pressed()) {
+        if(!is_high(KB_SOFTPOWER)) {
             press_host_softpower();
+        }
+        if(is_button_changed_state()) {
+            break;
         }
     }
 }
 
 void translation_mode() {
-	while(!is_button_activated()) {
+	while(true) {
 		key_event_t ev = transaction_get_keys();
 		translate_key_press(ev.keycode_1, ev.pressed_1);
 		translate_key_press(ev.keycode_2, ev.pressed_2);
         delay(11);  // like an original adb host
+        if(is_button_changed_state()) {
+            break;
+        }
 	}
     transaction_flush_mouse();
 }
@@ -84,4 +86,14 @@ void translate_key_press(uint8_t adb_code, bool is_pressed) {
 			hid_release_key(usbcode);
 		}
 	}
+}
+
+bool is_button_changed_state() {
+    if(!is_high(SWITCH_BUTTON)) {
+        transaction_set_leds(true, true, true);
+        delay(200);
+        transaction_set_leds(false, false, false);
+        return true;
+    }
+    return false;
 }

@@ -1,5 +1,5 @@
 #include "adb.h"
-#include "conf.h"
+#include "gpio.h"
 #include "hid.h"
 #include "main.h"
 
@@ -9,8 +9,8 @@ void setup() {
     TCCR1B = 0b00000010; // prescaler 8 (2 MHz)
 	
 	// pull-up for button
-	SWITCH_DDR_PORT |= (1 << SWITCH_PIN_NUMBER);
-	
+	pinMode(SWITCH_BUTTON, INPUT_PULLUP);
+
 	hid_init();
     reset();  // needed only for M0116/M0118
 }
