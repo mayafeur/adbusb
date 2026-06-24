@@ -24,3 +24,11 @@ void press_host_softpower() {
 	delay(100);
     set_release(HOST_SOFTPOWER);
 }
+
+bool is_button_changed_state() {
+    if(!is_high(SWITCH_BUTTON)) {
+        while(!is_high(SWITCH_BUTTON));
+        return true;
+    }
+    return false;
+}

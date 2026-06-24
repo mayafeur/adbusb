@@ -121,3 +121,9 @@ void transaction_flush_mouse() {
 	send_command(3, 0b00, 1);
 	send_bit_kb(0);
 }
+
+void blink_kb() {
+	transaction_set_leds(true, true, true);
+	delay(100);
+	transaction_set_leds(false, false, false);
+}

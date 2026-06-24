@@ -11,6 +11,7 @@ Allow one ADB keyboard to be used on one ADB computer (old Macintosh and Apple I
   - iso and ansi layouts
   - locking caps lock
   - power key in usb (translated as 0x66 "keyboard power")
+- automatic switch between adb and usb when a computer is powered off
 - tested on multiple keyboards: aek ii, m0116/m0118, appledesign...
 - tested on macintosh se
 

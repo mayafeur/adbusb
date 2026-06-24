@@ -11,5 +11,6 @@ void set_low(uint8_t pin_number);
 void set_release(uint8_t pin_number);
 bool is_high(uint8_t pin_number);
 void press_host_softpower();
+bool is_button_changed_state();
 
 #endif

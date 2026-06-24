@@ -80,3 +80,20 @@ void hid_release_key(uint8_t hid_code) {
 	}
 	hid_send_report();
 }
+
+void translate_key_press(uint8_t adb_code, bool is_pressed) {
+	int usbcode = aek_to_hid(adb_code);
+	if(usbcode) {
+		if(usbcode == 0x39) {
+			hid_press_key(usbcode);
+			delay(100);
+			hid_release_key(usbcode);
+		}
+		else if(is_pressed) {
+			hid_press_key(usbcode);
+		}
+		else {
+			hid_release_key(usbcode);
+		}
+	}
+}
