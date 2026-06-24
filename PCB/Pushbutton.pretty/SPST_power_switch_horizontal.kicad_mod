@@ -1,0 +1,178 @@
+(footprint "SPST_power_switch_horizontal"
+	(version 20241229)
+	(generator "pcbnew")
+	(generator_version "9.0")
+	(layer "F.Cu")
+	(property "Reference" "SW1"
+		(at 5.21 0.19 270)
+		(unlocked yes)
+		(layer "F.SilkS")
+		(uuid "895e9181-4e58-49ba-b8a8-f17f357ac929")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.1)
+			)
+		)
+	)
+	(property "Value" "SW_SPST"
+		(at 0.1 6.35 0)
+		(unlocked yes)
+		(layer "F.Fab")
+		(uuid "048fe437-464f-4e58-ae5a-b623f07a5765")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property "Datasheet" "~"
+		(at 0 0 0)
+		(unlocked yes)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "65d9789f-a4ec-4332-805f-86b9b179139e")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property "Description" "1x DIP Switch, Single Pole Single Throw (SPST) switch, small symbol"
+		(at 0 0 0)
+		(unlocked yes)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "02adf253-b771-48cd-b27e-d9a29594655a")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property "LCSC" "C6575016"
+		(at 0 0 0)
+		(unlocked yes)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "5a2c80fa-7fc4-4f40-8c28-6b61e195363e")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(fp_line
+		(start -2.5 -2.55)
+		(end -2.5 -1.35)
+		(stroke
+			(width 0.1)
+			(type default)
+		)
+		(layer "F.SilkS")
+		(uuid "fd17863a-8292-4c84-89f9-6fbc6389926f")
+	)
+	(fp_line
+		(start -2.5 -2.55)
+		(end 0 -2.55)
+		(stroke
+			(width 0.1)
+			(type default)
+		)
+		(layer "F.SilkS")
+		(uuid "9ed73b3b-aba2-4e38-b4ee-f9a37b012567")
+	)
+	(fp_line
+		(start -2.5 3.45)
+		(end -2.5 2.25)
+		(stroke
+			(width 0.1)
+			(type default)
+		)
+		(layer "F.SilkS")
+		(uuid "0899f4ae-6558-4330-95d7-9c92b4cb7b2c")
+	)
+	(fp_line
+		(start 0 -2.55)
+		(end 3.5 -2.55)
+		(stroke
+			(width 0.1)
+			(type default)
+		)
+		(layer "F.SilkS")
+		(uuid "9d4ff6e5-c859-43e6-b506-e03022fad777")
+	)
+	(fp_line
+		(start 0 3.45)
+		(end -2.5 3.45)
+		(stroke
+			(width 0.1)
+			(type default)
+		)
+		(layer "F.SilkS")
+		(uuid "3f8b8338-2adf-405f-a085-ab7feb4c4297")
+	)
+	(fp_line
+		(start 3.5 -2.55)
+		(end 3.5 -1.35)
+		(stroke
+			(width 0.1)
+			(type default)
+		)
+		(layer "F.SilkS")
+		(uuid "a9c0611e-d2e2-4755-a58b-ed552059e0e1")
+	)
+	(fp_line
+		(start 3.5 3.45)
+		(end 0 3.45)
+		(stroke
+			(width 0.1)
+			(type default)
+		)
+		(layer "F.SilkS")
+		(uuid "3a2a978b-e224-42e1-bc09-ae43d17e28ee")
+	)
+	(fp_line
+		(start 3.5 3.45)
+		(end 3.5 2.25)
+		(stroke
+			(width 0.1)
+			(type default)
+		)
+		(layer "F.SilkS")
+		(uuid "ad5efd86-e372-49d3-a688-d6c353756ba8")
+	)
+	(fp_text user "${REFERENCE}"
+		(at 0.05 8.4 0)
+		(unlocked yes)
+		(layer "F.Fab")
+		(uuid "88a0606b-271d-487d-9d79-d3bd3d68a378")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(pad "1" thru_hole circle
+		(at 3.45 0.47)
+		(size 2.2 2.2)
+		(drill 1.6)
+		(layers "*.Cu" "*.Mask")
+		(remove_unused_layers no)
+		(uuid "bc420172-8005-4d03-a31c-877ead9e065d")
+	)
+	(pad "2" thru_hole circle
+		(at -2.45 0.47)
+		(size 2.2 2.2)
+		(drill 1.6)
+		(layers "*.Cu" "*.Mask")
+		(remove_unused_layers no)
+		(uuid "1cded73d-2f21-4b82-86a1-f516666d76a5")
+	)
+	(embedded_fonts no)
+)

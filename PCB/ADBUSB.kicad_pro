@@ -54,23 +54,15 @@
       "diff_pair_dimensions": [],
       "drc_exclusions": [
         [
-          "copper_edge_clearance|144208567|60930000|3011ae04-1b2b-439c-8941-a4f692d7ef8b|f876084a-4e9f-4049-8b1d-54c33eceaff0",
+          "silk_edge_clearance|137580000|83870800|3011ae04-1b2b-439c-8941-a4f692d7ef8b|3f313d7e-2772-4f9d-932b-487508575aa9",
           ""
         ],
         [
-          "copper_edge_clearance|168370000|60930000|3011ae04-1b2b-439c-8941-a4f692d7ef8b|4baf8da7-a3ff-492c-ba8a-932775998f88",
+          "silk_edge_clearance|137580000|91490800|3011ae04-1b2b-439c-8941-a4f692d7ef8b|2ad1fd26-73dd-40cb-a8ce-26925c1d600a",
           ""
         ],
         [
-          "silk_edge_clearance|138170000|83870800|3011ae04-1b2b-439c-8941-a4f692d7ef8b|3f313d7e-2772-4f9d-932b-487508575aa9",
-          ""
-        ],
-        [
-          "silk_edge_clearance|138170000|91490800|3011ae04-1b2b-439c-8941-a4f692d7ef8b|2ad1fd26-73dd-40cb-a8ce-26925c1d600a",
-          ""
-        ],
-        [
-          "silk_edge_clearance|174340000|89510000|3011ae04-1b2b-439c-8941-a4f692d7ef8b|c15e6597-50b4-4dea-9288-81c26cb66136",
+          "silk_over_copper|171860028|68322183|dd842488-51c8-4a04-84e0-755f0b5e7aad|00000000-0000-0000-0000-000000000000",
           ""
         ]
       ],
@@ -518,7 +510,7 @@
     "netclass_patterns": [
       {
         "netclass": "Power",
-        "pattern": "VCC"
+        "pattern": "RAW_5V"
       },
       {
         "netclass": "Power",
