@@ -61,7 +61,7 @@ void passthrough_mode() {
 
 void translation_mode() {
 	while(true) {
-        if(is_button_changed_state() || USBDevice.isSuspended()) {
+        if(is_button_changed_state() || (USBDevice.isSuspended() && is_high(HOST_DATA))) {
             blink_kb();
             break;
         }
