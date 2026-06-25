@@ -1,26 +1,27 @@
-#  ADB to USB converter for Apple keyboards
+**Arduino software to share an ADB keyboard between an ADB computer (old Macintosh and Apple IIgs) and a USB computer.**
 
-Allow one ADB keyboard to be used on one ADB computer (old Macintosh and Apple IIgs) and one USB computer at the same time by switching between them.
-
-![Illustration](illustration.jpg)
+![pixelart illustration showing a macintosh se and a macbook sharing an adb keyboard](illustration.png)
 
 ## What works
 
-- adb passthrough between a macintosh and keyboard/mouse + softpower
+- adb passthrough between a macintosh and a keyboard
+  - handle other devices on the bus (like a mouse)
+  - relay softpower signal (macintosh ii, quadra, powermac...)
+  - no electric connection between data lines or softpower lines
 - adb keyboard to usb-hid conversion:
   - iso and ansi layouts
   - locking caps lock
   - power key in usb (translated as 0x66 "keyboard power")
-- automatic switch between adb and usb when a computer is powered off
-- tested on multiple keyboards: aek ii, m0116/m0118, appledesign...
-- tested on macintosh se
+- auto switch when a computer is off
+- tested on multiple keyboards: aek ii, m0116/m0118, appledesign
+- tested on macintosh se and powermac g3
 
 ## What don't work yet
 
-- keyboard leds on usb: the *keyboard* library doesn't handle hid output reports
-- hotplugging adb: works randomly, the microcontroller don't seems to like that
-- mouse passthrough in usb-hid mode
-- correct keyboard detection by the macintosh when the board is in usb mode: not a problem in practice
+- keyboard leds on usb: the *keyboard.h* library doesn't handle hid output reports
+- hotplugging adb: works randomly, the microcontroller don't like that
+- mouse passthrough in usb mode
+- keyboard detection at startup by the macintosh if arduino in usb mode: still usable tho
 - collision detection handling: the program calls the keyboard at address 2
 
 ## Hardware needed
